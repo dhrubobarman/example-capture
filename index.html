@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/capture-module/main.css">
+    <script src="index.js" type="module"></script>
+</head>
+<body>
+    <div style="display: flex; justify-content: flex-end; gap:8px; margin: 20px;" >
+        <button id="start" style="border: 1px solid gray; padding: 5px 10px; border-radius: 5px;">Start</button>
+        <button id="stop" style="border: 1px solid gray; padding: 5px 10px; border-radius: 5px;">Stop</button>
+        <button id="getData" style="border: 1px solid gray; padding: 5px 10px; border-radius: 5px;">Get Data</button>
+      </div>
+    <div id="container" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 1200px; margin-inline: auto; margin-block: 60px; padding-inline: 20px;"></div>
+    <script>
+        const items = Array.from(new Array(30), (_, index) => `item-${index}`);
+  
+  function getId(id, extra) {
+    if (id) {
+      return `id=${extra}-${id}`;
+    }
+    return '';
+  }
+  
+
+  function renderExsceleton() {
+    let html = '';
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      const id = i % 2 === 0 ? i : null;
+      const newHTML = `
+        <div ${getId(id, 'card')} class="card dark:bg-slate-800 bg-gray-200 rounded-lg dark:text-white shadow-md p-4">
+            <div ${getId(id, 'card-body')} class="card-body">
+              <h2 ${getId(id, 'card-title')} class="!text-[20px] font-semibold border-b mb-2 pb-2">
+                ${item}
+              </h2>
+              <p ${getId(id, 'card-p')} class="text-md py-2">If a dog chews shoes whose shoes does he choose?</p>
+              <div ${getId(id, 'card-actions')} class="card-actions justify-end">
+                <button id=${item} class="px-2 py-1 border rounded-md font-semibold bg-[#0f172a] text-white dark:border-gray-800 dark:bg-green-900">
+                  Buy Now
+                </button>
+              </div>
+            </div>
+          </div>
+      `;
+      html+=newHTML
+    }
+    const container = document.querySelector('#container').innerHTML = html;
+  }
+  renderExsceleton();
+    </script>
+    
+</body>
+</html>
